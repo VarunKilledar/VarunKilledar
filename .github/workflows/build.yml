@@ -35,7 +35,9 @@ jobs:
 
       - name: Create frontend build
         working-directory: ./frontend
-        run: npm run build
+        run: |
+          unset CI
+          npm run build
 
       - name: Upload the Artifact
         run: aws s3 cp ./frontend/build s3://jokeappfrontend --recursive
