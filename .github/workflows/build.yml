@@ -1,0 +1,47 @@
+name: My First nodejs application
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-lates
+    
+    strategy:
+      matrix: 
+        node-version: ['18.x','20.x']
+
+    steps:
+      - name: Check out Repository 
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+
+      - name: Global Package Install
+        run: npm install -g pm2 serve
+        
+      - name: Installing dependecies
+        run: |
+          cd ./frontend
+          npm i
+      - name: Creating frontend build 
+        run: npm run build
+
+      - name: Upload the Artifact
+        run : aws s3 cp $GITHUB_WORKSPACE/frontend/build s3://jokeappfrontend --recursive
+          
+        
+        
+          
+        
+          
