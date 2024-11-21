@@ -25,14 +25,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Navigate to Frontend
-        run: cd frontend
-        
       - name: Install dependencies
+        working-directory: ./frontend
         run: npm install
 
       - name: Create frontend build
+        working-directory: ./frontend
         run: npm run build
 
       - name: Upload the Artifact
-        run: aws s3 cp $GITHUB_WORKSPACE/frontend/build s3://jokeappfrontend --recursive
+        run: aws s3 cp ./frontend/build s3://jokeappfrontend --recursive
