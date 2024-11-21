@@ -1,4 +1,4 @@
-name: My First nodejs application
+name: My First Node.js Application
 on: [push]
 
 jobs:
@@ -18,32 +18,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-
-      - name: Global Package Install
-        run: npm install -g pm2 serve
-        
-      - name: Moving to Directory
+      - name: Navigate to Frontend
         run: cd frontend
         
-      - name: Installing dependecies
+      - name: Install dependencies
         run: npm install
-        
-      - name: Creating frontend build 
+
+      - name: Create frontend build
         run: npm run build
 
       - name: Upload the Artifact
-        run : aws s3 cp $GITHUB_WORKSPACE/frontend/build s3://jokeappfrontend --recursive
-          
-        
-        
-          
-        
-          
+        run: aws s3 cp $GITHUB_WORKSPACE/frontend/build s3://jokeappfrontend --recursive
