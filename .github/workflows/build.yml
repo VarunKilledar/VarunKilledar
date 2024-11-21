@@ -29,6 +29,10 @@ jobs:
         working-directory: ./frontend
         run: npm install
 
+      - name: Fix Babel dependencies
+        working-directory: ./frontend
+        run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
       - name: Create frontend build
         working-directory: ./frontend
         run: npm run build
