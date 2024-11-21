@@ -32,7 +32,7 @@ jobs:
         
       - name: Installing dependecies
         run: |
-          cd ./frontend
+          cd frontend
           npm i
       - name: Creating frontend build 
         run: npm run build
