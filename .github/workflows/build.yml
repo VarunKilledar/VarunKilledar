@@ -33,7 +33,7 @@ jobs:
       - name: Installing dependecies
         run: |
           cd frontend
-          npm i
+          npm install
       - name: Creating frontend build 
         run: npm run build
 
