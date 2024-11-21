@@ -30,10 +30,12 @@ jobs:
       - name: Global Package Install
         run: npm install -g pm2 serve
         
+      - name: Moving to Directory
+        run: cd frontend
+        
       - name: Installing dependecies
-        run: |
-          cd frontend
-          npm install
+        run: npm install
+        
       - name: Creating frontend build 
         run: npm run build
 
