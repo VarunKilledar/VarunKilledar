@@ -39,5 +39,8 @@ jobs:
           unset CI
           npm run build
 
+      - name: Deleting all previous data
+        run: aws s3 rm s3://jokeappfrontend --recursive
+        
       - name: Upload the Artifact
         run: aws s3 cp ./frontend/build s3://jokeappfrontend --recursive
