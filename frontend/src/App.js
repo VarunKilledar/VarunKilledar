@@ -13,7 +13,7 @@ function App() {
   const handleClick = async () => {
     setLoading(true); // Set loading state to true while request is being made
     try {
-      const res = await axios.get(`http://backuploadbalancer-2094967000.us-east-1.elb.amazonaws.com/api/getJoke`);
+      const res = await axios.get(`${backendUrl}/api/getJoke`);
       setResponse(res.data);
     } catch (error) {
       console.error(error);
